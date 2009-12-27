@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- 
+POWERED BY:
+ _   _                   _             __ 
+| |_| |__  _ __ ___  ___| | ___  __ _ / _|
+| __| '_ \| '__/ _ \/ _ \ |/ _ \/ _` | |_ 
+| |_| | | | | |  __/  __/ |  __/ (_| |  _|
+ \__|_| |_|_|  \___|\___|_|\___|\__,_|_|  
+-->
+<html>
+<head>
+<title>RTE</title>
+<script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="jquery.greybackEditor.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+$(document).ready(function(){
+	$('#testtext').greybackEditor({
+		
+	});
+});
+
+/* ]]> */
+</script>
+<style type="text/css" media="screen">
+<!--
+	.greybackEditor_controls {
+		width: 80%;
+		height: 26px;
+		background: #eeeeee;
+		padding: 0;
+		margin: 0;
+	}
+
+	.greybackEditor {
+		width: 80%;
+		border: solid 1px #cccccc;
+		padding: 20px;
+		clear: both;
+	}
+	
+	.greybackEditor_controls LI {
+		float: left;
+		padding: 5px;
+		margin: 2px
+		margin: 0;
+		list-style: none;
+	}
+	
+	.greybackEditor_controls LI A {
+		display: block;
+		padding: 0;
+		width: 16px;
+		height: 16px;
+		text-indent: -3000px;
+		border: solid 1px #cccccc;
+		background: url(editor_icons.png) top left no-repeat;
+	}
+	
+	#greybackEditorCommand_italic {
+		background-position: -16px 0;
+	}
+	
+	#greybackEditorCommand_strike {
+		background-position: -48px 0;
+	}
+	
+	#greybackEditorCommand_underline {
+		background-position: -32px 0;
+	}
+	
+	#greybackEditorCommand_super {
+		background-position: -112px -16px;
+	}
+	
+	#greybackEditorCommand_sub {
+		background-position: -96px -16px;
+	}
+	
+	#greybackEditorCommand_justleft {
+		background-position: 0 -32px;
+	}
+	
+	#greybackEditorCommand_justright {
+		background-position: -32px -32px;
+	}
+	
+	#greybackEditorCommand_justcent {
+		background-position: -16px -32px;
+	}
+	
+	#greybackEditorCommand_ol {
+		background-position: -96px 0;
+	}
+	
+	#greybackEditorCommand_ul {
+		background-position: -112px 0;
+	}
+	
+	#greybackEditorCommand_indent {
+		background-position: -128px -16px;
+	}
+	
+	#greybackEditorCommand_outdent {
+		background-position: -144px -16px;
+	}
+	
+	#greybackEditorCommand_link {
+		background-position: -64px 0;
+	}
+	
+	#greybackEditorCommand_unlink {
+		background-position: -80px 0;
+	}
+	
+	#greybackEditorCommand_image {
+		background-position: -128px 0;
+	}
+	
+	#greybackEditorCommand_video {
+		background-position: -128px 0;
+	}
+	
+	#greybackEditorCommand_document {
+		background-position: -128px 0;
+	}
+	
+	.greybackEditor_active {
+		background: #999999;
+	}
+	
+-->
+</style>
+</head>
+<body>
+<form action="">
+	<textarea name="" id="testtext" cols="30" rows="10"></textarea>
+</form>
+<a href="#" onclick="$('#testtext').greybackEditor.insertImage('http://www.google.com/intl/en_ALL/images/logo.gif'); return false;">TEST</a>
+</body>
+</html>

@@ -31,12 +31,12 @@
 				{'name':'Link','id':'link','type':'function','val':null},
 				{'name':'Unlink','id':'unlink','type':'command','val':'unlink'},
 				{'name':'Insert','id':'insert','type':'label','val':'Insert:'},
-				{'name':'Image','id':'image','type':'function','val':null},
+				{'name':'Image','id':'image','type':'function','val':'insertImage'},
 				{'name':'Video','id':'video','type':'function','val':null},
 				{'name':'Document','id':'document','type':'function','val':null}
 			]
 		};
-		
+
 		var opts = $.extend(defaults,options);
 
 		this.each(function() {
@@ -97,7 +97,6 @@
 							select.appendChild(option);
 						});
 						$(select).change(function() {
-							alert($(this).val());
 							document.execCommand('formatblock',false,$(this).val());
 							$.fn.greybackEditor.update(editor,controls,textarea);
 							$(editor).focus();
@@ -114,7 +113,8 @@
 						link.setAttribute('href',val['val']);
 						link.id = 'greybackEditorCommand_'+val['id'];
 						$(link).click(function() {
-							document.execCommand(val['val'],null,null);
+							debug(val['val']);
+							eval('$.fn.greybackEditor.'+val['val']+'(editor,"http://www.google.com/intl/en_ALL/images/logo.gif");');
 							$.fn.greybackEditor.update(editor,controls,textarea);
 							return false;
 						})
@@ -127,9 +127,10 @@
 				}
 				controls.appendChild(li);
 			});
-			
+
 			textarea.before(controls);
 			textarea.before(editor);
+			textarea.hide();
 			$(editor).focus();
 
 			$(editor).keydown(function() {
@@ -148,7 +149,7 @@
 			});
 
 			$(editor).children('IMG').dblclick(function() {
-				console.log(this);
+				debug(this);
 			});
 		});
 	};
@@ -158,7 +159,7 @@
 			console.log(obj);
 		}
 	}
-	
+
 	$.fn.greybackEditor.update = function(editor, controls, textarea) {
 		$(controls).find('a.greybackEditorCommand_style').each(function() {
 			if(document.queryCommandState($(this).attr('href'))) {
@@ -166,9 +167,6 @@
 			} else {
 				$(this).parent('li').removeClass('greybackEditor_active');
 			}
-		});
-		$(editor).children('IMG').dblclick(function() {
-			$.fn.greybackEditor.editImage(this);
 		});
 		/*
 		$(editor).html($(editor).html().replace(/<em(\b[^>]*)>/gi, "<i$1>")
@@ -183,8 +181,11 @@
 		console.log(image);
 	}
 
-	$.fn.greybackEditor.insertImage = function(image) {
+	$.fn.greybackEditor.insertImage = function(editor, image) {
 		document.execCommand('insertImage',false,image);
+		$(editor).children('IMG').dblclick(function() {
+			$.fn.greybackEditor.editImage(this);
+		});
 	}
 
 	$.fn.greybackEditor.insertVideo = function(image) {
@@ -192,7 +193,7 @@
 	}
 
 	$.fn.greybackEditor.insertDocument = function(image) {
-		
+
 	}
 
 	$.fn.greybackEditor.toggleEditor = function() {

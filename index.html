@@ -26,15 +26,16 @@ $(document).ready(function(){
 <style type="text/css" media="screen">
 <!--
 	.greybackEditor_controls {
-		width: 80%;
+		width: 782px;
 		height: 26px;
 		background: #eeeeee;
-		padding: 0;
+		padding: 10px;
 		margin: 0;
 	}
 
 	.greybackEditor {
-		width: 80%;
+		width: 760px;
+		height: 300px;
 		border: solid 1px #cccccc;
 		padding: 20px;
 		clear: both;
@@ -42,7 +43,7 @@ $(document).ready(function(){
 	
 	.greybackEditor_controls LI {
 		float: left;
-		padding: 5px;
+		padding: 2px;
 		margin: 2px
 		margin: 0;
 		list-style: none;
@@ -137,6 +138,6 @@ $(document).ready(function(){
 <form action="">
 	<textarea name="" id="testtext" cols="30" rows="10"></textarea>
 </form>
-<a href="#" onclick="$('#testtext').greybackEditor.insertImage('http://www.google.com/intl/en_ALL/images/logo.gif'); return false;">TEST</a>
+<a href="#" onclick="$('#testtext').greybackEditor.insertImage($('#testtext'),'http://www.google.com/intl/en_ALL/images/logo.gif'); return false;">TEST</a>
 </body>
 </html>

@@ -55,11 +55,16 @@
 			workspace.id = tag+'_greybackWorkspace';
 			var workspace_controls = document.createElement('div');
 			workspace_controls.id = tag+'_greybackWorkspaceControls';
+			
 			var workspace_image = document.createElement('div');
 			workspace_image.id = tag+'_greybackWorkspaceImage';
+			var workspace_save = document.createElement('div');
+			workspace_save.id = tag+'_greybackWorkspaceSave';
+			$(workspace_save).html('<a href="#" id="'+tag+'_greybackWorkspaceSaveLink">SAVE</a>');
 
 			workspace.appendChild(workspace_controls);
 			workspace.appendChild(workspace_image);
+			workspace.appendChild(workspace_save);
 
 			var controls = document.createElement('ul');
 			$(controls).attr("class","greybackEditor_controls")
@@ -194,9 +199,13 @@
 		workspace = '#'+tag+'_greybackWorkspace';
 		workspace_controls = '#'+tag+'_greybackWorkspaceControls';
 		workspace_image = '#'+tag+'_greybackWorkspaceImage';
+		workspace_save = '#'+tag+'_greybackWorkspaceSaveLink';
 		editor = '#'+tag+'_greybackEditor';
 		$(workspace_image).html(image);
 		image_width = image.width;
+		image_height = image.height;
+		image.id = tag+'_greybackJcrop';
+		var jcrop = $.Jcrop(image,{});
 		$(workspace_controls).slider({
 			orientation:"vertical",
 			min:.10,
@@ -204,12 +213,27 @@
 			value:1,
 			step:.01,
 			slide: function(event, ui) {
-				$(workspace_image).children('IMG').width(ui.value * image_width);
+				$('.jcrop-holder IMG, .jcrop-holder, .jcrop-tracker').width(ui.value * image_width).height(ui.value * image_height);
 			}
 		});
 		$(image).dblclick(function(){
 			$(editor).focus();
 			$(editor).greybackEditor.insertImage(tag, this.src);
+		});
+		$(workspace_save).click(function() {
+/*
+		h: 260
+w: 246
+x: 329
+x2: 575
+y: 77
+y2: 337
+*/
+			var jcrop_dim = jcrop.tellSelect();
+			var img = '<img src="">';
+			var base = image.baseURI + 'img/thumb/';
+			console.log(base);
+			console.log($('#'+image.id).attr('src'));
 		});
 	}
 

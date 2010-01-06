@@ -42,12 +42,24 @@
 		this.each(function() {
 			textarea = $(this);
 
+			var tag = textarea.attr('id');
+
 			var value = textarea.val();
 			var editor = document.createElement('div');
 			editor.contentEditable = "true";
-			editor.id = textarea.attr('id')+'_greybackEditor';
+			editor.id = tag+'_greybackEditor';
 			$(editor).html(value);
 			$(editor).attr("class","greybackEditor");
+
+			var workspace = document.createElement('div');
+			workspace.id = tag+'_greybackWorkspace';
+			var workspace_controls = document.createElement('div');
+			workspace_controls.id = tag+'_greybackWorkspaceControls';
+			var workspace_image = document.createElement('div');
+			workspace_image.id = tag+'_greybackWorkspaceImage';
+
+			workspace.appendChild(workspace_controls);
+			workspace.appendChild(workspace_image);
 
 			var controls = document.createElement('ul');
 			$(controls).attr("class","greybackEditor_controls")
@@ -113,8 +125,8 @@
 						link.setAttribute('href',val['val']);
 						link.id = 'greybackEditorCommand_'+val['id'];
 						$(link).click(function() {
-							debug(val['val']);
-							eval('$.fn.greybackEditor.'+val['val']+'(editor,"http://www.google.com/intl/en_ALL/images/logo.gif");');
+							editor.focus();
+							eval('$.fn.greybackEditor.'+val['val']+'(tag,"http://localhost/greyback_razor/img/thumb/00698_snowmountains_1440x900.jpg/width:700");');
 							$.fn.greybackEditor.update(editor,controls,textarea);
 							return false;
 						})
@@ -128,6 +140,7 @@
 				controls.appendChild(li);
 			});
 
+			textarea.before(workspace);
 			textarea.before(controls);
 			textarea.before(editor);
 			textarea.hide();
@@ -177,14 +190,34 @@
 		$(textarea).val($(editor).html());
 	}
 
-	$.fn.greybackEditor.editImage = function(image) {
-		console.log(image);
+	$.fn.greybackEditor.editImage = function(tag, image) {
+		workspace = '#'+tag+'_greybackWorkspace';
+		workspace_controls = '#'+tag+'_greybackWorkspaceControls';
+		workspace_image = '#'+tag+'_greybackWorkspaceImage';
+		editor = '#'+tag+'_greybackEditor';
+		$(workspace_image).html(image);
+		image_width = image.width;
+		$(workspace_controls).slider({
+			orientation:"vertical",
+			min:.10,
+			max:2,
+			value:1,
+			step:.01,
+			slide: function(event, ui) {
+				$(workspace_image).children('IMG').width(ui.value * image_width);
+			}
+		});
+		$(image).dblclick(function(){
+			$(editor).focus();
+			$(editor).greybackEditor.insertImage(tag, this.src);
+		});
 	}
 
-	$.fn.greybackEditor.insertImage = function(editor, image) {
+	$.fn.greybackEditor.insertImage = function(tag, image) {
 		document.execCommand('insertImage',false,image);
+		editor = '#'+tag+'_greybackEditor';
 		$(editor).children('IMG').dblclick(function() {
-			$.fn.greybackEditor.editImage(this);
+			$.fn.greybackEditor.editImage(tag, this);
 		});
 	}
 

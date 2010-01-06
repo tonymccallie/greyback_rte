@@ -11,7 +11,9 @@ POWERED BY:
 <head>
 <title>RTE</title>
 <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="jquery.greybackEditor.js"></script>
+<link rel="stylesheet" href="css/smoothness/jquery-ui-1.7.2.custom.css" type="text/css" media="all" /> 
 <script type="text/javascript">
 /* <![CDATA[ */
 
@@ -35,10 +37,11 @@ $(document).ready(function(){
 
 	.greybackEditor {
 		width: 760px;
-		height: 300px;
+		height: 500px;
 		border: solid 1px #cccccc;
 		padding: 20px;
 		clear: both;
+		overflow: auto;
 	}
 	
 	.greybackEditor_controls LI {
@@ -138,6 +141,5 @@ $(document).ready(function(){
 <form action="">
 	<textarea name="" id="testtext" cols="30" rows="10"></textarea>
 </form>
-<a href="#" onclick="$('#testtext').greybackEditor.insertImage($('#testtext'),'http://www.google.com/intl/en_ALL/images/logo.gif'); return false;">TEST</a>
 </body>
 </html>

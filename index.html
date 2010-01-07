@@ -18,7 +18,7 @@ POWERED BY:
 <link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" media="all" /> 
 <script type="text/javascript">
 /* <![CDATA[ */
-
+var webroot = "http://localhost/greyback_razor/";
 $(document).ready(function(){
 	$('#testtext').greybackEditor({
 		
@@ -38,7 +38,17 @@ $(document).ready(function(){
 	}
 	
 	#testtext_greybackWorkspaceSave {
-		margin-left: 200px;
+		float: right;
+		padding: 5px;
+	}
+	
+	#testtext_greybackWorkspaceSave A {
+		display: block;
+		padding: 5px;
+		border: solid 1px #666666;
+		text-decoration: none;
+		background: #ffffff;
+		color: #000000;
 	}
 
 	.greybackEditor {
@@ -48,6 +58,28 @@ $(document).ready(function(){
 		padding: 20px;
 		clear: both;
 		overflow: auto;
+	}
+	
+	.greybackEditorWorkspace {
+		display: none;
+		width: 760px;
+		height: 500px;
+		padding: 20px;
+		background: #cccccc;
+		border: solid 1px #666666;
+	}
+	
+	.greybackEditorWorkspaceControls {
+		background: #ffffff;
+	}
+	
+	.greybackEditorWorkspaceImage {
+		margin-top: 20px;
+		overflow: auto;
+		width: 760px;
+		height: 440px;
+		background: #000000;
+		border: solid 1px #666666;
 	}
 	
 	.greybackEditor_controls LI {

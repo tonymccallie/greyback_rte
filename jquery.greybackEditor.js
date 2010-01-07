@@ -53,14 +53,16 @@
 
 			var workspace = document.createElement('div');
 			workspace.id = tag+'_greybackWorkspace';
+			$(workspace).attr("class","greybackEditorWorkspace");
 			var workspace_controls = document.createElement('div');
 			workspace_controls.id = tag+'_greybackWorkspaceControls';
-			
+			$(workspace_controls).attr("class","greybackEditorWorkspaceControls");
 			var workspace_image = document.createElement('div');
 			workspace_image.id = tag+'_greybackWorkspaceImage';
+			$(workspace_image).attr("class","greybackEditorWorkspaceImage");
 			var workspace_save = document.createElement('div');
 			workspace_save.id = tag+'_greybackWorkspaceSave';
-			$(workspace_save).html('<a href="#" id="'+tag+'_greybackWorkspaceSaveLink">SAVE</a>');
+			$(workspace_save).html('<a href="#" id="'+tag+'_greybackWorkspaceSaveLink">Save</a>');
 
 			workspace.appendChild(workspace_controls);
 			workspace.appendChild(workspace_image);
@@ -201,19 +203,34 @@
 		workspace_image = '#'+tag+'_greybackWorkspaceImage';
 		workspace_save = '#'+tag+'_greybackWorkspaceSaveLink';
 		editor = '#'+tag+'_greybackEditor';
+		$(workspace).slideDown();
 		$(workspace_image).html(image);
+
 		image_width = image.width;
 		image_height = image.height;
 		image.id = tag+'_greybackJcrop';
+
 		var jcrop = $.Jcrop(image,{});
+		var zoom = image_width;
+		var base = webroot + 'img/thumb/';
+		var remove = base.length;
+		var filename = $('#'+image.id).attr('src').substr(remove);
+		filename = filename.split('/');
+		filename = filename[0];
+
 		$(workspace_controls).slider({
-			orientation:"vertical",
 			min:.10,
 			max:2,
 			value:1,
 			step:.01,
 			slide: function(event, ui) {
-				$('.jcrop-holder IMG, .jcrop-holder, .jcrop-tracker').width(ui.value * image_width).height(ui.value * image_height);
+				zoom = ui.value * image_width;
+				$('.jcrop-holder IMG, .jcrop-holder, .jcrop-tracker, #'+image.id).width(zoom).height(ui.value * image_height);
+				
+			},
+			change: function(event, ui) {
+				jcrop.destroy();
+				jcrop = $.Jcrop(image,{});
 			}
 		});
 		$(image).dblclick(function(){
@@ -230,10 +247,15 @@ y: 77
 y2: 337
 */
 			var jcrop_dim = jcrop.tellSelect();
-			var img = '<img src="">';
-			var base = image.baseURI + 'img/thumb/';
-			console.log(base);
-			console.log($('#'+image.id).attr('src'));
+			var base = webroot + 'img/thumb/';
+			var remove = base.length;
+			var filename = $('#'+image.id).attr('src').substr(remove);
+			filename = filename.split('/');
+			filename = filename[0];
+			filename = filename+"/width:"+jcrop_dim['w']+"/height:"+jcrop_dim['h']+"/top:"+jcrop_dim['y']+"/left:"+jcrop_dim['x']+"/zoom:"+zoom+"/crop:true"
+			$(editor).focus();
+			$(editor).greybackEditor.insertImage(tag, base+filename);
+			$(workspace).slideUp();
 		});
 	}
 
